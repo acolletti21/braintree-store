@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>BraintreeStore</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+
+
+  <body>
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/">Bark Babel</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          
+          <ul class="nav navbar-nav navbar-left">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort Options<span class="caret"></span></a>
+            </li>
+          </ul>
+
+
+
+          <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "<span class='glyphicon glyphicon-shopping-cart'></span> Cart (#{@cart_count})".html_safe, "/carted_dogs", method: :get %></li>
+
+            <li class="dropdown">
+              <li><a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">Menu<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% if current_user %>
+                  <li><a><%= current_user.email %></a></li>
+                  <li><a href="/logout">Log Out</a></li>
+                <% else %>
+                  <li><a href="/signup">Sign Up</a></li>
+                  <li><a href="/login">Log In</a></li>
+                <% end %>
+              </ul>
+            </li>
+          </ul>
+
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+  
+
+    <div class="container">
+      <% flash.each do |name, message| %>
+        <div class="alert alert-<%=name%> alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <strong><%= name.upcase %></strong> <%=message%>
+       </div>
+      <%end%>
+    </div>
+
+
+    <%= yield %>
+  </body>
+</html>

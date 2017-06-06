@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="thumbnail" style="padding:5% 30%">
+      <h1>Order Summary</h1>
+      <h3>Order Id: <%= "13060#{@order.id}"%></h3>
+      <h3>Email: <%= @order.user.email %></h3>
+      </br>
+      <% @order.carted_dogs.each do |carted_dog| %>
+      <h3>Friendship Specialist: <%= carted_dog.dog.name %></h3>
+      <h3>Price: <%= carted_dog.dog.price %></h3>
+      <h3>Quantity: 15 mins X <%= carted_dog.quantity %></h3>
+      <% end %>
+      <h3>Subtotal: <%= number_to_currency(@order.subtotal) %></h3>
+      <h3>Tax: <%= number_to_currency(@order.tax) %></h3>
+      <h3>Total: <%= number_to_currency(@order.total) %></h3>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+  
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="thumbnail" style="padding:5% 30%">
+      <h1>Checkout</h1>
+
+      <% @carted_dogs.each do |carted_dog| %>
+      <h3>Product ID: <%= carted_dog.dog.id %></h3>
+      <h3>Friendship Specialist: <%= carted_dog.dog.name %></h3>
+      <h3>Talk Time: 15 mins x <%= carted_dog.quantity %></h3>
+      <h3>Total: <%= number_to_currency(carted_dog.dog.price * carted_dog.quantity) %></h3>
+        <%= form_tag "/carted_dogs/#{carted_dog.id}", method: :delete do %>
+        <%= submit_tag "Remove Item", class: "btn btn-warning" %>
+        <% end %>
+      <% end %>
+
+        <% @count =  0 %>
+      <% @carted_dogs.each do |carted_dog| %>
+        <% @count += carted_dog.quantity %>
+      <% end %>
+      <h3>Cart Total: <%= number_to_currency(@count * 20) %></h3>
+      </br>
+      <%= link_to "Checkout", "/orders", method: :get, class: "btn btn-info" %>
+    </div>
+  </div>
+</div>

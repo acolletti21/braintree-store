@@ -1,0 +1,35 @@
+<div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-10 col-sm-offset-1">
+  <h2 style="color:#845268">Bark Babel</h2>
+  <p style="font-size:18px">Bark Babel is a non-profit that provides real-time canine translation services. Experience this revolutionary new technology and chat with one of our friendship specialists today.
+  </br> 
+  <i>*All proceeds go towards funding our research and communication outreach program.*</i></p>
+</div>
+
+<% @dogs.each do |dog| %>
+  <div class="dog-style col-md-4 col-sm-6 col-xs-12">
+    <div class="row" style="box-shadow: 1px 5px 8px #845268">
+      <div class="dog-inner-div col-sm-8">
+        <img style ="margin: 6% 4% 3% 4%" src="img/dogs/dog<%= dog.id%>.jpg">
+        <p style="vertical-align: text-bottom; text-align:center"><i>"<%= dog.quote %>"</i> - <b><%= dog.name %></b></p>
+      </div>
+      <div class="col-sm-4 inner-right-col">
+
+        <h3></br><%= number_to_currency(dog.price) %></h3>
+        <h4>Per 15 minutes of talk time</h4>
+        <% if current_user %>
+          <%= form_tag "/carted_dogs", method: :post do %>
+            <div>
+              <%= label_tag :quantity %>
+              <%= text_field_tag :quantity, "", size:"3" %>
+              <%= hidden_field_tag :dog_id, dog.id %>
+            </div>
+            <%= submit_tag "Add to Cart", class: "btn btn-default" %>
+          <% end %>
+        <% else %>
+         <h3>Log in to add products to your cart</h3>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
