@@ -24,6 +24,7 @@ TRANSACTION_SUCCESS_STATUSES = [
   end
 
   def create
+    @carted_dogs = current_user.cart
     amount = params["amount"] # In production you should not take amounts directly from clients
     nonce = params["payment_method_nonce"]
 
@@ -35,6 +36,7 @@ TRANSACTION_SUCCESS_STATUSES = [
       }
     )
 
+    @carted_dogs.update_all(status: "purchased")
     if result.success? || result.transaction
       # redirect_to checkout_path(result.transaction.id)
       flash[:success] = "Your order has been placed!"
