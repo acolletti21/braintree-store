@@ -14,7 +14,8 @@
 
 Go to config/application.yml and add Braintree sandbox authorizations
 
-  ```BT_ENVIRONMENT: 'sandbox'
+  ```
+  BT_ENVIRONMENT: 'sandbox'
   BT_MERCHANT_ID: 'yourMerchantID'
   BT_PUBLIC_KEY: 'yourPublicKey'
   BT_PRIVATE_KEY: 'yourPrivateKey'
