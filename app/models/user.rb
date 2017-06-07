@@ -10,4 +10,12 @@ class User < ApplicationRecord
   def cart
     carted_dogs.where(status: 'carted')
   end
+
+  def cart_total
+    total = 0
+    cart.each do |dog|
+      total += dog.quantity
+    end
+    total * 20
+  end
 end

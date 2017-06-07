@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  skip_before_action :verify_authenticity_token
   require 'Braintree'
 
 
@@ -14,7 +15,6 @@ TRANSACTION_SUCCESS_STATUSES = [
   ]
 
   def new
-    # Braintree::Configuration.environment ="sandbox"
     @client_token = Braintree::ClientToken.generate
   end
 
@@ -36,11 +36,13 @@ TRANSACTION_SUCCESS_STATUSES = [
     )
 
     if result.success? || result.transaction
-      redirect_to checkout_path(result.transaction.id)
+      # redirect_to checkout_path(result.transaction.id)
+      flash[:success] = "Your order has been placed!"
+      redirect_to '/'
     else
       error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
       flash[:error] = error_messages
-      redirect_to new_checkout_path
+      redirect_to '/orders'
     end
   end
 
@@ -72,8 +74,8 @@ TRANSACTION_SUCCESS_STATUSES = [
   #   redirect_to '/'
   # end
 
-  def show
-    @order = Order.find(params["id"])
-  end
+  # def show
+  #   @order = Order.find(params["id"])
+  # end
 end
 

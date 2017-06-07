@@ -10,4 +10,11 @@ class CartedDog < ApplicationRecord
   def subtotal
     dog.price * quantity
   end
+
+  # def count
+  #   @carted_dogs.each do |carted_dog|
+  #     @count += carted_dog.quantity 
+  #   end
+  #   number_to_currency(@count * 20)
+  # end
 end

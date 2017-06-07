@@ -1,24 +1,57 @@
- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
   </head>
  <body>
-    <form action="/" id="my-sample-form" method="post">
-      <label for="card-number">Card Number</label>
-      <div id="card-number"></div>
+   
+ <div class="panel panel-default bootstrap-basic col-sm-6 col-sm-offset-3">
+  <div class="panel-heading">
+    <h3 class="panel-title">Enter Card Details</h3>
+  </div>
+  <form action="/orders" id="my-sample-form" method="post" class="panel-body">
+    <div class="row">
+      <div class="form-group col-xs-8">
+        <label class="control-label">Card Number</label>
+        <!--  Hosted Fields div container -->
+        <div class="form-control" id="card-number"></div>
+        <span class="helper-text"></span>
+      </div>
+      <div class="form-group col-xs-4">
+        <div class="row">
+          <label class="control-label col-xs-12">Expiration Date</label>
+          <div class="col-xs-6">
+            <!--  Hosted Fields div container -->
+            <div class="form-control" id="expiration-month"></div>
+          </div>
+          <div class="col-xs-6">
+            <!--  Hosted Fields div container -->
+            <div class="form-control" id="expiration-year"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-xs-6">
+        <label class="control-label">Security Code</label>
+        <!--  Hosted Fields div container -->
+        <div class="form-control" id="cvv"></div>
+      </div>
+      <div class="form-group col-xs-6">
+        <label class="control-label">Zipcode</label>
+        <!--  Hosted Fields div container -->
+        <div class="form-control" id="postal-code"></div>
+        
+        <%= hidden_field_tag :amount, @current_user.cart_total %>
+      </div>
+    </div>
 
-      <label for="cvv">CVV</label>
-      <div id="cvv" name ="cvv" type="text"></div>
-
-      <label for="expiration-date">Expiration Date</label>
-      <div id="expiration-date"></div>
-
-      <input type="submit" value="Pay" />
-    </form>
-
-    <script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+    
+    <button value="submit" id="submit" class="btn btn-success btn-lg center-block">Pay with <span id="card-type">Card</span></button>
+  </form>
+   
+  <script src="https://js.braintreegateway.com/js/braintree-2.32.1.min.js"></script>
+     
     <script>
       braintree.setup("<%= @client_token %>", "custom", {
         id: "my-sample-form",
@@ -29,11 +62,22 @@
           cvv: {
             selector: "#cvv"
           },
-          expirationDate: {
-            selector: "#expiration-date"
+          expirationMonth: {
+            selector: "#expiration-month"
+          },
+          expirationYear: {
+            selector: "#expiration-year"
+          },
+          postalCode: {
+            selector: "#postal-code"
+          },
+          amount: {
+            selector: "#amount"
           }
         }
-      });
+      }); 
+    </script>
+  </body>
     </script>
   </body>
 </html>
