@@ -25,7 +25,7 @@ TRANSACTION_SUCCESS_STATUSES = [
 
   def create
     @carted_dogs = current_user.cart
-    amount = params["amount"] # In production you should not take amounts directly from clients
+    amount = params["amount"] 
     nonce = params["payment_method_nonce"]
 
     result = Braintree::Transaction.sale(
@@ -38,7 +38,6 @@ TRANSACTION_SUCCESS_STATUSES = [
 
     @carted_dogs.update_all(status: "purchased")
     if result.success? || result.transaction
-      # redirect_to checkout_path(result.transaction.id)
       flash[:success] = "Your order has been placed!"
       redirect_to '/'
     else
@@ -46,38 +45,8 @@ TRANSACTION_SUCCESS_STATUSES = [
       flash[:error] = error_messages
       redirect_to '/orders'
     end
+
+    
   end
-
-  # def new
-  #   @client_token = Braintree::ClientToken.generate
-  # end
-
-  # # def create
-  # #   carted_dogs = current_user.cart
-  # #   order = Order.create(user_id: current_user.id)
-  # #   carted_dogs.update_all(status: 'purchased', order_id: order.id)
-  # #   order.calculate_totals
-  # #   if order.save
-  # #     redirect_to "/orders/#{order.id}"
-  # #   end
-  # # end
-
-
-  #   def create
-  #   nonce = params[:payment_method_nonce]
-  #   count = @count
-  #   received = Braintree::Transaction.sale(
-  #     amount: count,
-  #     payment_method_nonce: nonce
-  #   )
-
-  #   flash[:notice] = "Thank you for your order." if received.success?
-   
-  #   redirect_to '/'
-  # end
-
-  # def show
-  #   @order = Order.find(params["id"])
-  # end
 end
 

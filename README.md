@@ -1,25 +1,17 @@
 # README
 
 $ bundle
+
+$ bundle exec figaro install
+
 $ rake db:migrate 
+
 $ rake db:seed
 
-Things you may want to cover:
+Go to config/application.yml and add Braintree sandbox authorizations;
+  BT_ENVIRONMENT: 'sandbox'
+  BT_MERCHANT_ID: 'yourMerchantID'
+  BT_PUBLIC_KEY: 'yourPublicKey'
+  BT_PRIVATE_KEY: 'yourPrivateKey'
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+start shopping at localhost:3000/
